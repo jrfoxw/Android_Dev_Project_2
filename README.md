@@ -1,8 +1,9 @@
 # Android_Dev_Project_2
 Udacity Project 2
 
+## Information
 Insert Personal API in Constants.API_KEY
-Uses Realm Database https://realm.io/news/realm-for-android/
+Uses Realm Database https://realm.io/news/realm-for-android/ not Compatible with Cursors or Content Providers (at this time)
 
 ## Performed Following 
 1. Tested for offline use
