@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000">
+
+    <fragment
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:name="Fragments.MovieFragment"
+        android:id="@+id/movieInfo"
+        android:layout_gravity="center_horizontal"
+        tools:layout="@layout/fragment_movie"
+        android:layout_weight="0.11" />
+
+    <fragment
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:name="Fragments.DetailsFragment"
+        android:id="@+id/detailsInfo"
+        tools:layout="@layout/fragment_details"
+        android:layout_weight=".1" />
+</LinearLayout>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="Fragments.OverviewFragment">
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|center_horizontal"
+            android:paddingTop="14dp"
+            android:background="#000">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Overview"
+                android:id="@+id/overviewBtn"
+                android:textColor="#c1b02c"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                android:textSize="16sp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Reviews"
+                android:id="@+id/reviewBtn"
+                android:textColor="#c1b02c"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#000">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp">
+
+                <ListView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/listView"
+                    android:visibility="visible"
+                    android:headerDividersEnabled="true"
+                    android:footerDividersEnabled="true"
+                    android:divider="#555"
+                    android:dividerHeight="2dp" />
+
+                <ScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/scrollView2"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="(insight) Glancing at the thug who is eyeing you, you don&apos;t notice anything in particular, You keep him in your peripheral as he subtly elbows one of the guards next to him and nods in your general direction. It appears you&apos;ve been noticed as you can see the two moving in a beeline straight toward you...  (Perception) The thug looks like a typical warehouse worker but is carrying something in his hand, that you can&apos;t make out. The guard is more heavily armed than the thug, and appears to be wearing body armor of some sort. His left hand touches a sidearm on his left leg; his other hand grips a strap attached to a rifle barrel protruding from above his right shoulder.  You see a ladder not far from you heading into the upper level of the warehouse, to the right are several large crates that you could hide behind, you could also enter to the maze of crates to your left that run near the rear exit of the warehouse. There are also a few items like metal poles, wrenches, fire extinguishers that litter the area around you..."
+                        android:id="@+id/overviewView"
+                        android:textColor="#FFF"
+                        android:layout_marginTop="5dp"
+
+                        android:autoText="false"
+
+                        android:textSize="14sp"
+                        android:layout_marginBottom="0dp"
+                        android:hint="Movie overview"
+                        android:layout_gravity="center_vertical"
+                        android:visibility="visible"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:gravity="bottom" />
+                </ScrollView>
+
+            </FrameLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</FrameLayout>
