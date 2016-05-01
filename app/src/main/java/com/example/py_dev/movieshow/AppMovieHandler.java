@@ -19,7 +19,7 @@ public class AppMovieHandler extends Application {
         super.onCreate();
 
             RealmConfiguration configuration = new RealmConfiguration.Builder(this).build();
-            Realm.deleteRealm(configuration);
+            
             Realm.setDefaultConfiguration(configuration);
             realm = Realm.getDefaultInstance();
 
