@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 
+import android.net.Uri;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +37,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URL;
 import java.util.ArrayList;
 
 import Adapters.ImageAdapter;
@@ -69,6 +71,22 @@ public class MainActivity extends AppCompatActivity {
 
     public DetailsFragment detailsFragment;
 
+
+
+
+    String popular = Uri.parse(Constants.BASE_URL)
+            .buildUpon()
+            .appendPath("popular")
+            .appendQueryParameter("api_key", Constants.API_KEY)
+            .build()
+            .toString();
+
+    String rated = Uri.parse(Constants.BASE_URL)
+            .buildUpon()
+            .appendPath("top_rated")
+            .appendQueryParameter("api_key", Constants.API_KEY)
+            .build()
+            .toString();
 
     public ArrayList<MovieData> fMovies = new ArrayList<>();
     public ArrayList<MovieData> pMovies = new ArrayList<>();
@@ -117,8 +135,12 @@ public class MainActivity extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
         RealmResults<MovieData> pResults = realm.where(MovieData.class).findAll();
 
-        getMovies(Constants.SORT_BY_VOTES, "rated");
-        getMovies(Constants.BASE_URL, "popular");
+
+
+        getMovies(popular, "popular");
+
+        getMovies(rated, "rated");
+
 
         /**
          * Check for internet connection
@@ -144,14 +166,14 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("OPTIONS MENU", " SORT BY POPULARITY SELECTED");
                 this.setTitle("Popular Films");
                 bFavoritesOn = false;
-                getMovies(Constants.BASE_URL, "popular");
+                getMovies(popular, "popular");
                 break;
 
             case R.id.highest_rated_id:
                 Log.d("OPTIONS MENU", " SORT BY VOTES SELECTED");
                 this.setTitle("Highest Rated Films");
                 bFavoritesOn = false;
-                getMovies(Constants.SORT_BY_VOTES, "rated");
+                getMovies(rated, "rated");
                 break;
 
             case R.id.favorites_id:
@@ -212,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
     public void errorCheck(RealmResults<MovieData> mResults) {
 
         if (!mResults.isEmpty() || IsOnline.getInstance(this).checkOnline()) {
-            getMovies(Constants.BASE_URL, "popular");
+            getMovies(popular, "popular");
         } else {
 
             if (!mResults.isEmpty() && !IsOnline.getInstance(this).checkOnline()) {
@@ -220,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
                 errorView.setText(Constants.ERROR_TEXT[0]);
                 errorZone.setVisibility(View.VISIBLE);
 
-                getMovies(Constants.BASE_URL, "popular");
+                getMovies(popular, "popular");
 
             } else if (mResults.isEmpty() && !IsOnline.getInstance(this).checkOnline()) {
 
@@ -245,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
                 }.start();
 
             }
-            getMovies(Constants.SORT_BY_VOTES, "rated");
+            getMovies(rated, "rated");
             for (int r = 0; r < mResults.size(); r++) {
                 pMovies.add(mResults.get(r));
             }
@@ -253,7 +275,7 @@ public class MainActivity extends AppCompatActivity {
             ImageAdapter adapter = new ImageAdapter(this, pMovies.size(), pMovies);
             adapter.notifyDataSetChanged();
             gridView.setAdapter(adapter);
-            getMovies(Constants.BASE_URL, "popular");
+            getMovies(popular, "popular");
 
         }
     }
@@ -308,14 +330,29 @@ public class MainActivity extends AppCompatActivity {
                                 }
 
                                 try {
-                                    final String SHOW_TRAILERS = Constants.SINGLE_MOVIE_URL
-                                            + newMovie.getString("id")
-                                            + "/videos" + Constants.API_KEY;
+
+                                   String builder = Uri.parse(Constants.BASE_URL)
+                                            .buildUpon()
+                                            .appendPath(newMovie.getString("id"))
+                                            .appendPath("videos")
+                                            .appendQueryParameter("api_key", Constants.API_KEY)
+                                            .build()
+                                            .toString();
+
+
+                                    final String SHOW_TRAILERS = builder;
                                     gTData.getTrailerData(SHOW_TRAILERS, mData, requestQueue);
 
-                                    final String SHOW_REVIEWS = Constants.SINGLE_MOVIE_URL
-                                            + newMovie.getString("id")
-                                            + "/reviews" + Constants.API_KEY;
+                                    builder = Uri.parse(Constants.BASE_URL)
+                                            .buildUpon()
+                                            .appendPath(newMovie.getString("id"))
+                                            .appendPath("reviews")
+                                            .appendQueryParameter("api_key", Constants.API_KEY)
+                                            .build()
+                                            .toString();
+
+
+                                    final String SHOW_REVIEWS = builder;
                                     gRData.getReviewData(SHOW_REVIEWS, mData, requestQueue);
 
                                 } catch (JSONException e) {
